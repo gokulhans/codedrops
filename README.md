@@ -1,4 +1,4 @@
-# CodeDrops Snippet Saver
+# CodeDrops
 
 CodeDrops Snippet Saver is a lightweight and intuitive code snippet management application. Easily organize, store, and access your code snippets with this user-friendly tool. Streamline your coding workflow and enhance collaboration with CodeDrops Snippet Saver.
 
@@ -20,11 +20,11 @@ CodeDrops Snippet Saver is a lightweight and intuitive code snippet management a
   
 ## Getting Started
 
-Visit [CodeDrops Snippet Saver](https://www.codedrops.xyz/) to start managing your code snippets effectively.
+Visit [CodeDrops](https://www.codedrops.xyz/) to start managing your code snippets effectively.
 
 ## Contribution
 
-Contributions are welcome! If you have suggestions, feature requests, or bug reports, please [open an issue](https://github.com/your-username/CodeDrops-Snippet-Saver/issues). Let's make CodeDrops Snippet Saver even better together.
+Contributions are welcome! If you have suggestions, feature requests, or bug reports, please [open an issue](https://github.com/gokulhans/codedrops/issues). Let's make CodeDrops Snippet Saver even better together.
 
 ## License
 
