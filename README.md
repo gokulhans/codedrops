@@ -2,8 +2,6 @@
 
 CodeDrops is a lightweight and intuitive code snippet management application. Easily organize, store, and access your code snippets with this user-friendly tool. Streamline your coding workflow and enhance collaboration with CodeDrops.
 
-## Getting Started
-
 Visit [CodeDrops](https://www.codedrops.xyz/) to start managing your code snippets effectively.
 
 ## Why Codedrops?

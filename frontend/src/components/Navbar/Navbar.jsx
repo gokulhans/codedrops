@@ -75,14 +75,14 @@ const Navbar = () => {
                 className="font-medium text-gray-500 hover:text-gray-400 md:py-6 dark:text-gray-400 dark:hover:text-gray-500"
                 href="#"
               >
-                Account
+                Drops
               </a>
-              <a
+              {/* <a
                 className="font-medium text-gray-500 hover:text-gray-400 md:py-6 dark:text-gray-400 dark:hover:text-gray-500"
                 href="#"
               >
                 Work
-              </a>
+              </a> */}
               <a
                 className="font-medium text-gray-500 hover:text-gray-400 md:py-6 dark:text-gray-400 dark:hover:text-gray-500"
                 href="#"
