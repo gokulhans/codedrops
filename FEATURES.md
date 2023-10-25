@@ -1,8 +1,8 @@
 ## CodeDrops Features
 
-- [ ] **Home Page Ui**
+- [x] **Home Page Ui**
 - [ ] **Website Content Updation**
-- [ ] **DarkMode**
+- [x] **DarkMode**
 - [ ] **Sign Up**
 - [ ] **Sign In**
 - [ ] **Forgot Password**
@@ -18,8 +18,8 @@
 - [ ] **Sort Drops**
 - [ ] **Syntax Highlight**
 - [ ] **SEO Helmet/React Seo**
-- [ ] **Contact Us**
-- [ ] **Subscribe**
+- [ ] **Contact Us Function**
+- [ ] **Subscribe Function**
 - [ ] **Link Social**
 
 Feel free to check the boxes once each feature is implemented and tested successfully. Happy coding!
