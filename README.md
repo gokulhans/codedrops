@@ -38,7 +38,7 @@ Absolutely, yes! CodeDrops Snippet Saver is completely free to use. We believe i
 
 ## Contribution
 
-Contributions are welcome! If you have suggestions, feature requests, or bug reports, please [open an issue](https://github.com/gokulhans/codedrops/issues). Let's make CodeDrops Snippet Saver even better together.
+Contributions are welcome! If you have suggestions, feature requests, or bug reports, please see [FEATURES.md](FEATURES.md). Let's make CodeDrops even better together.
 
 ## License
 
