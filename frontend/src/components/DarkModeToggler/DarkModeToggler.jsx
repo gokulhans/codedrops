@@ -16,6 +16,11 @@ const DarkModeToggler = () => {
         }
     }, []);
 
+    const setTabColor = (darkMode) => {
+        const tabColor = !darkMode ? '#0F172A' : '#FFFFFF';
+        document.querySelector("meta[name='theme-color']").setAttribute("content", tabColor);
+    };
+
     const toggleDarkMode = () => {
         const newDarkMode = !darkMode;
         setDarkMode(newDarkMode);
@@ -29,6 +34,7 @@ const DarkModeToggler = () => {
         } else {
             document.body.classList.remove('dark');
         }
+        setTabColor(darkMode);
     };
 
     return (
