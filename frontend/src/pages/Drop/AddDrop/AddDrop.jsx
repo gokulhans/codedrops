@@ -48,6 +48,12 @@ const AddDrop = () => {
     };
 
     const handleAddDrop = async () => {
+        let dropbody;
+        let authorid = localStorage.getItem("userid");
+        let authorname = localStorage.getItem("username");
+        if (editorRef.current) {
+            dropbody = editorRef.current.getContent();
+        }
         let data = {
             dropname: snippetName,
             dropbody: dropbody,
@@ -61,7 +67,11 @@ const AddDrop = () => {
 
     const { mutateAsync } = useMutation({
         mutationFn: (data) => {
-            return axiosClient.post('/api/drops/add', data); // Assuming the API endpoint for adding drops is /api/drops
+            const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
+            const headers = {
+                Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+            };
+            return axiosClient.post('/drop/', data, { headers });
         },
         onSuccess: () => {
             // Handle success, navigate to a different page or show a success message
@@ -72,6 +82,8 @@ const AddDrop = () => {
             setIsLoading(false);
         },
     });
+
+
     return (
         <main className="w-full mx-auto p-6">
             <div className="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-900 dark:border-gray-700">
