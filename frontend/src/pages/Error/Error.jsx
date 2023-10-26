@@ -3,7 +3,7 @@ import React from 'react'
 const Error = () => {
     return (
         <div className="max-w-[50rem] flex flex-col mx-auto w-full h-full">
-            <header className="mb-auto flex justify-center z-50 w-full py-4">
+            <header className="mb-auto flex justify-center w-full py-4">
                 <nav className="px-4 sm:px-6 lg:px-8" aria-label="Global">
                     <a
                         className="flex-none text-xl font-semibold sm:text-3xl dark:text-white"

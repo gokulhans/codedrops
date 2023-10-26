@@ -1,7 +1,9 @@
 import React from 'react'
 import DarkModeToggler from "./../DarkModeToggler/DarkModeToggler";
+import { Link } from 'react-router-dom'
+import LogoutButton from '../LogoutButton/LogoutButton';
 
-const Navbar = () => {
+const Navbar = ({ isAuth, setIsAuth }) => {
   return (
     <>
       <header className="fixed top-0 left-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-white/30 border-b border-gray-200 text-sm py-3 sm:py-0 dark:bg-gray-900/30 dark:border-gray-800 backdrop-blur-2xl">
@@ -10,13 +12,12 @@ const Navbar = () => {
           aria-label="Global"
         >
           <div className="flex items-center justify-between">
-            <a
+            <Link to={"/"}
               className="flex-none text-xl font-semibold dark:text-white p-2 md:p-0"
-              href="#"
               aria-label="Brand"
             >
               Codedrops
-            </a>
+            </Link>
 
             <div className='flex space-x-2'>
 
@@ -93,13 +94,22 @@ const Navbar = () => {
               <div className="hidden md:block">
                 <DarkModeToggler />
               </div>
+              {!isAuth ?
 
-              <button
-                type="button"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Login
-              </button>
+                <Link to={"/signin"}
+                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  Login
+                </Link> :
+                <>
+                  <Link to={"/drop/add"}
+                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                    Add Drop
+                  </Link>
+                  <LogoutButton setIsAuth={setIsAuth} />
+                </>
+              }
             </div>
           </div>
         </nav>

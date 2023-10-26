@@ -9,11 +9,9 @@ app.use(express.json())
 app.use(cors());
 
 const userRouter = require('./routes/userRoutes')
+app.use("/api/user", userRouter)
 
-app.get('/', (req, res) => {
-    res.json({ message: "Hello" });
-});
+const authRouter = require('./routes/authRoutes')
+app.use("/api/auth", authRouter)
 
-app.use("/api/auth/user", userRouter)
-
-app.listen(process.env.PORT, () => console.log("Server is running on port 5000"))
+app.listen(process.env.PORT || 5000, () => console.log("Server is running on port 5000"))

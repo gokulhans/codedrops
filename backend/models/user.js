@@ -15,6 +15,12 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-});
+    acceptTerms: {
+        type: Boolean,
+        required: true
+    },
+},
+    { timestamps: true }
+);
 
 module.exports = mongoose.model('User', userSchema);
