@@ -1,4 +1,60 @@
-const SignUp = () => {
+import React, { useState } from "react";
+import { useForm } from 'react-hook-form'
+import * as yup from "yup"
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation } from '@tanstack/react-query';
+import axiosClient from '../../axios';
+import { Link, useNavigate } from "react-router-dom";
+
+
+const SignUp = ({ setIsAuth }) => {
+
+    const [isLoading, setIsLoading] = useState(false)
+    const [showError, setShowError] = useState(null)
+    const navigate = useNavigate();
+
+    const schema = yup.object().shape({
+        name: yup.string().required(),
+        email: yup.string().email().required(),
+        password: yup.string().min(4).max(8).required(),
+        confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match').required(),
+        acceptTerms: yup.boolean().oneOf([true], 'You must accept the terms and conditions to proceed').required(),
+    })
+
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema),
+    })
+
+    const { mutateAsync } = useMutation({
+        mutationFn: (data) => {
+            return axiosClient.post('/auth/signup', data)
+        },
+        onSuccess: (data) => {
+            const { name, userId, token } = data.data;
+            localStorage.setItem('isAuth', true)
+            localStorage.setItem('userid', userId)
+            localStorage.setItem('username', name)
+            localStorage.setItem('token', token)
+            setIsAuth(true)
+            navigate("/")
+        },
+        onError: (error) => {
+            if (error.response && error.response.status === 400 && error.response.data.error === 'Email address is already in use') {
+                setShowError('Email address is already in use');
+                console.error('Duplicate email error:', error.response.data.error);
+            } else {
+                setShowError('Internal Server Error');
+                console.error('Internal Server Error:', error.response.data.error);
+            }
+            setIsLoading(false)
+        },
+    })
+
+    const onSubmit = (data) => {
+        setIsLoading(true)
+        mutateAsync(data);
+    }
+
     return (
         <main className="w-full max-w-md mx-auto p-6">
             <div className="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-900 dark:border-gray-700">
@@ -9,16 +65,15 @@ const SignUp = () => {
                         </h1>
                         <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
                             Already have an account?
-                            <a
+                            <Link to={"/signin"}
                                 className="text-blue-600 decoration-2 hover:underline font-medium"
-                                href="../examples/html/signin.html"
                             >
                                 {" "}  Sign in
-                            </a>
+                            </Link>
                         </p>
                     </div>
                     <div className="mt-5">
-                        <button
+                        {/* <button
                             type="button"
                             className="w-full py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-gray-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-900"
                         >
@@ -50,10 +105,32 @@ const SignUp = () => {
                         </button>
                         <div className="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:border-gray-200 before:mr-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ml-6 dark:text-gray-500 dark:before:border-gray-600 dark:after:border-gray-600">
                             Or
-                        </div>
+                        </div> */}
                         {/* Form */}
-                        <form>
+                        <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="grid gap-y-4">
+                                {/* Form Group */}
+                                <div>
+                                    <label
+                                        htmlFor="name"
+                                        className="block text-sm mb-2 dark:text-white"
+                                    >
+                                        Name
+                                    </label>
+                                    <div className="relative">
+                                        <input
+                                            type="text"
+                                            id="name"
+                                            name="name"
+                                            className="border py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400"
+                                            {...register("name")}
+                                        />
+                                    </div>
+                                    <p className="text-xs text-red-600 dark:text-red-500 mt-2">
+                                        {errors.name?.message}
+                                    </p>
+                                </div>
+                                {/* End Form Group */}
                                 {/* Form Group */}
                                 <div>
                                     <label
@@ -68,8 +145,7 @@ const SignUp = () => {
                                             id="email"
                                             name="email"
                                             className="border py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400"
-                                            required=""
-                                            aria-describedby="email-error"
+                                            {...register("email")}
                                         />
                                         <div className="hidden absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3">
                                             <svg
@@ -84,8 +160,8 @@ const SignUp = () => {
                                             </svg>
                                         </div>
                                     </div>
-                                    <p className="hidden text-xs text-red-600 mt-2" id="email-error">
-                                        Please include a valid email address so we can get back to you
+                                    <p className="text-xs text-red-600 dark:text-red-500 mt-2">
+                                        {errors.email?.message}
                                     </p>
                                 </div>
                                 {/* End Form Group */}
@@ -103,8 +179,7 @@ const SignUp = () => {
                                             id="password"
                                             name="password"
                                             className="border py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400"
-                                            required=""
-                                            aria-describedby="password-error"
+                                            {...register("password")}
                                         />
                                         <div className="hidden absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3">
                                             <svg
@@ -120,10 +195,10 @@ const SignUp = () => {
                                         </div>
                                     </div>
                                     <p
-                                        className="hidden text-xs text-red-600 mt-2"
-                                        id="password-error"
+                                        className=" text-xs text-red-600 dark:text-red-500 mt-2"
+
                                     >
-                                        8+ characters required
+                                        {errors.password?.message}
                                     </p>
                                 </div>
                                 {/* End Form Group */}
@@ -141,8 +216,7 @@ const SignUp = () => {
                                             id="confirm-password"
                                             name="confirm-password"
                                             className="border py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400"
-                                            required=""
-                                            aria-describedby="confirm-password-error"
+                                            {...register("confirmPassword")}
                                         />
                                         <div className="hidden absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3">
                                             <svg
@@ -158,10 +232,9 @@ const SignUp = () => {
                                         </div>
                                     </div>
                                     <p
-                                        className="hidden text-xs text-red-600 mt-2"
-                                        id="confirm-password-error"
+                                        className="text-xs text-red-600 dark:text-red-500 mt-2"
                                     >
-                                        Password does not match the password
+                                        {errors.confirmPassword?.message}
                                     </p>
                                 </div>
                                 {/* End Form Group */}
@@ -173,6 +246,7 @@ const SignUp = () => {
                                             name="remember-me"
                                             type="checkbox"
                                             className="curser-pointer"
+                                            {...register("acceptTerms")}
                                         />
                                     </div>
                                     <div className="ml-3">
@@ -190,13 +264,22 @@ const SignUp = () => {
                                         </label>
                                     </div>
                                 </div>
+                                <p className="text-xs text-red-600 dark:text-red-500 mt-2">
+                                    {errors.acceptTerms?.message}
+                                </p>
                                 {/* End Checkbox */}
-                                <button
+                                <input
                                     type="submit"
+                                    value="Sign Up"
+                                    disabled={isLoading}
                                     className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-900"
-                                >
-                                    Sign up
-                                </button>
+                                />
+                                {showError &&
+                                    <p
+                                        className="text-xs text-red-600 dark:text-red-500 mt-2"
+                                    >
+                                        {showError}
+                                    </p>}
                             </div>
                         </form>
                         {/* End Form */}

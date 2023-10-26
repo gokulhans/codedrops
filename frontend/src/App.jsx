@@ -8,26 +8,28 @@ import SignIn from './pages/SignIn/SignIn';
 import Forgot from './pages/Forgot_Password/Forgot_Password';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
+import AddDrop from './pages/Drop/AddDrop/AddDrop';
 
 function App() {
-  // const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
   return (
     <>
       <div className='dark:bg-gray-900 dark:text-gray-50'>
-        <Navbar isAuth={isAuth} />
+        <Navbar isAuth={isAuth} setIsAuth={setIsAuth} />
         <div className="pt-16 min-h-screen flex flex-col items-center justify-center">
           <Routes>
             {!isAuth ? (
               <>
                 <Route path="/" element={<Home isAuth={isAuth} />} />
-                <Route path="/signin" element={<SignIn />} />
-                <Route path="/signup" element={<SignUp />} />
+                <Route path="/signin" element={<SignIn setIsAuth={setIsAuth} />} />
+                <Route path="/signup" element={<SignUp setIsAuth={setIsAuth} />} />
                 <Route path="/forgot_password" element={<Forgot />} />
               </>
             ) : (
               <>
                 <Route exact path="/" element={<Home isAuth={isAuth} />} />
+                <Route path="/drop/add" element={<AddDrop isAuth={isAuth} />} />
+                {/* <Route path="/drop/edit/:id" element={<Home isAuth={isAuth} />} /> */}
                 <Route path="*" element={<Error isAuth={isAuth} />} />
               </>
             )}
