@@ -9,6 +9,7 @@ import Forgot from './pages/Forgot_Password/Forgot_Password';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import AddDrop from './pages/Drop/AddDrop/AddDrop';
+import Drops from './pages/Drop/Drops/Drops';
 
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
@@ -30,6 +31,8 @@ function App() {
                 <Route exact path="/" element={<Home isAuth={isAuth} />} />
                 <Route path="/drop/add" element={<AddDrop isAuth={isAuth} />} />
                 {/* <Route path="/drop/edit/:id" element={<Home isAuth={isAuth} />} /> */}
+                <Route path="/drops" element={<Drops isAuth={isAuth} />} />
+                {/* <Route path="/drop/:id" element={<Home isAuth={isAuth} />} /> */}
                 <Route path="*" element={<Error isAuth={isAuth} />} />
               </>
             )}
