@@ -11,7 +11,6 @@ const SignIn = ({ setIsAuth }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [showError, setShowError] = useState(null)
   const navigate = useNavigate();
-
   const schema = yup.object().shape({
     email: yup.string().email().required(),
     password: yup.string().required(),
@@ -23,7 +22,7 @@ const SignIn = ({ setIsAuth }) => {
 
   const { mutateAsync } = useMutation({
     mutationFn: (data) => {
-      return axiosClient.post('/auth/signin', data)
+      return axiosClient.post("/auth/signin", data)
     },
     onSuccess: (data) => {
       const { name, userId, token } = data.data;
