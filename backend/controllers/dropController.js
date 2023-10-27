@@ -46,6 +46,7 @@ const dropController = {
         }
     },
     deleteById: async (req, res) => {
+        console.log(req.params.id);
         try {
             const deletedDrop = await Drop.findOneAndDelete({ _id: req.params.id });
             if (deletedDrop) {
