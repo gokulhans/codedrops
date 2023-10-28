@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import ShimmerDropBlock from "./../../../components/Shimmer/ShimmerDropBlock";
 import { useQuery } from '@tanstack/react-query'
 import axiosClient from "../../../axios";
-import ShimmerCodeBlock from "./../../../components/Shimmer/ShimmerDropBlock";
 import DropBlock from "../../../components/DropBlock/DropBlock";
 
 

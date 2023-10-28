@@ -38,7 +38,7 @@ const DropBlock = ({
 
     const handleShare = () => {
         navigator.clipboard.writeText(
-            `https://codedrops.xyz/#/drop/${dropid}/${generateSlug(dropname)}`
+            `${import.meta.env.VITE_FRONTEND_URL}#/drop/${dropid}/${generateSlug(dropname)}`
         );
         setIsShared(true);
     };
@@ -106,7 +106,7 @@ const DropBlock = ({
                             {!hideview && (
                                 <>
                                     <Link
-                                        to={`/edit/${dropid}`}
+                                        to={`/drop/edit/${dropid}`}
                                         className="font-bold text-sm text-blue-600"
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">
