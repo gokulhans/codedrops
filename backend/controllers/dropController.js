@@ -56,7 +56,18 @@ const dropController = {
         } catch (error) {
             res.status(500).json({ msg: 'Error deleting drop', error: error.message });
         }
-    }
+    },
+    getAllDropsByUser: async (req, res) => {
+        try {
+            const userId = req.params.userId; // Extract user ID from request parameters
+            console.log(userId);
+            const drops = await Drop.find({ userid: userId }); // Find drops by user ID
+            console.log(drops);
+            res.json({ msg: 'Drops found for the user', data: drops });
+        } catch (error) {
+            res.status(500).json({ msg: 'Error fetching drops for the user', error: error.message });
+        }
+    },
 };
 
 module.exports = dropController;

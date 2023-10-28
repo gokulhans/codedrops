@@ -12,6 +12,7 @@ import AddDrop from './pages/Drop/AddDrop/AddDrop';
 import Drops from './pages/Drop/Drops/Drops';
 import ViewDrop from './pages/Drop/ViewDrop/ViewDrop';
 import EditDrop from './pages/Drop/EditDrop/EditDrop';
+import Profile from './pages/Profile/Profile';
 
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
@@ -35,6 +36,7 @@ function App() {
                 <Route path="/drop/edit/:id" element={<EditDrop isAuth={isAuth} />} />
                 <Route path="/drops" element={<Drops isAuth={isAuth} />} />
                 <Route path="/drop/:id/:title" element={<ViewDrop isAuth={isAuth} />} />
+                <Route path="/profile/:id/:user" element={<Profile isAuth={isAuth} />} />
                 <Route path="*" element={<Error isAuth={isAuth} />} />
               </>
             )}

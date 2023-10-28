@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from "react";
-import DropBlocksList from "../../../components/Dropblock/DropBlockList";
-import ShimmerDropBlock from "./../../../components/Shimmer/ShimmerDropBlock";
-import ShimmerSearch from "../../../components/Shimmer/ShimmerSearch";
-import { useQuery } from '@tanstack/react-query'
-import axiosClient from '../../../axios';
+import React from "react";
+import DropBlocksList from "../../components/Dropblock/DropBlockList";
+import axiosClient from "../../axios";
+import { useQuery } from "@tanstack/react-query";
+import ShimmerSearch from "../../components/Shimmer/ShimmerSearch";
+import ShimmerDropBlock from "../../components/Shimmer/ShimmerDropBlock";
+import { useParams } from "react-router-dom";
 
-
-const Drops = () => {
-
-    const fetchDrops = async () => {
+const Profile = () => {
+    const { id } = useParams()
+    const fetchUserDrops = async () => {
         const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
         const headers = {
             Authorization: `Bearer ${token}`, // Include the token in the Authorization header
         };
-        const response = await axiosClient.get('/drop', { headers });
+        const response = await axiosClient.get(`/drop/user/${id}`, { headers });
         return response.data; // Assuming your API response contains an array of drops
     };
 
     const { data: drops, isLoading, isError, error } = useQuery({
-        queryKey: ['drops'],
-        queryFn: fetchDrops,
+        queryKey: ['userdrops'],
+        queryFn: fetchUserDrops,
     });
 
     if (isLoading) {
@@ -39,12 +39,10 @@ const Drops = () => {
     }
 
     return (
-        <>
-            <div className="flex align-center justify-self-center w-full">
-                <DropBlocksList dropBlocks={drops} title={"Code Drops"} />
-            </div >
-        </>
+        <div className="flex align-center justify-self-center w-full">
+            <DropBlocksList dropBlocks={drops} />
+        </div>
     );
 };
 
-export default Drops;
+export default Profile;
