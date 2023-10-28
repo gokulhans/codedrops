@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const secretKey = process.env.JWT_SECRET_KEY; // Replace with a secure secret key
 
-const verifyUser = (req, res, next) => {
+const verifyToken = (req, res, next) => {
     const token = req.header('Authorization').replace('Bearer ', '');
     try {
         const decoded = jwt.verify(token, secretKey);
@@ -13,4 +13,4 @@ const verifyUser = (req, res, next) => {
     }
 };
 
-module.exports = verifyUser;
+module.exports = verifyToken;

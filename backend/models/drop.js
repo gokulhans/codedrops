@@ -26,6 +26,4 @@ const dropSchema = new Schema({
     { timestamps: true }
 );
 
-const Drop = mongoose.model('Drop', dropSchema);
-
-module.exports = Drop;
+module.exports = mongoose.model('Drop', dropSchema);

@@ -11,9 +11,11 @@ app.use(cors());
 const userRouter = require('./routes/userRoutes')
 const authRouter = require('./routes/authRoutes')
 const dropRouter = require('./routes/dropRoutes')
+const tagRoutes = require('./routes/tagRoutes')
 
 app.use("/api/user", userRouter)
 app.use("/api/auth", authRouter)
 app.use("/api/drop", dropRouter)
+app.use('/api/tag', tagRoutes)
 
 app.listen(process.env.PORT || 5000, () => console.log("Server is running on port 5000"))

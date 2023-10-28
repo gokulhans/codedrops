@@ -3,11 +3,11 @@ import { useForm } from 'react-hook-form'
 import * as yup from "yup"
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
-import axiosClient from '../../axios';
+import axiosClient from '../../../axios';
 import { Link, useNavigate } from "react-router-dom";
 
 
-const SignUp = ({ setIsAuth }) => {
+const AdminSignUp = ({ setIsAdmin }) => {
 
     const [isLoading, setIsLoading] = useState(false)
     const [showError, setShowError] = useState(null)
@@ -27,24 +27,24 @@ const SignUp = ({ setIsAuth }) => {
 
     const { mutateAsync } = useMutation({
         mutationFn: (data) => {
-            return axiosClient.post('/auth/signup', data)
+            return axiosClient.post('/auth/admin/signup', data)
         },
         onSuccess: (data) => {
-            const { name, userId, token, email } = data.data;
-            localStorage.setItem('isAuth', true)
-            localStorage.setItem('userid', userId)
-            localStorage.setItem('username', name)
+            const { name, adminId, token, email } = data.data;
+            localStorage.setItem('isAdmin', true)
+            localStorage.setItem('adminid', adminId)
+            localStorage.setItem('adminname', name)
             localStorage.setItem('token', token)
             localStorage.setItem('email', email)
-            setIsAuth(true)
-            navigate("/")
+            setIsAdmin(true)
+            navigate("/admin")
         },
         onError: (error) => {
-            if (error.response && error.response.status === 400) {
-                setShowError(error.response.data.error);
+            if (error.response && error.response.status === 400 && error.response.data.error === 'Email address is already in use') {
+                setShowError('Email address is already in use');
                 console.error('Duplicate email error:', error.response.data.error);
             } else {
-                setShowError(error.response.data.error);
+                setShowError('Internal Server Error');
                 console.error('Internal Server Error:', error.response.data.error);
             }
             setIsLoading(false)
@@ -62,11 +62,11 @@ const SignUp = ({ setIsAuth }) => {
                 <div className="p-4 sm:p-7">
                     <div className="text-center">
                         <h1 className="block text-2xl font-bold text-gray-900 dark:text-white">
-                            Sign up
+                            Admin Sign up
                         </h1>
                         <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
                             Already have an account?
-                            <Link to={"/signin"}
+                            <Link to={"/admin/signin"}
                                 className="text-blue-600 decoration-2 hover:underline font-medium"
                             >
                                 {" "}  Sign in
@@ -292,4 +292,4 @@ const SignUp = ({ setIsAuth }) => {
     );
 }
 
-export default SignUp;
+export default AdminSignUp;

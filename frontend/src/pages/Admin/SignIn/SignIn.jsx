@@ -3,10 +3,10 @@ import { useForm } from 'react-hook-form'
 import * as yup from "yup"
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
-import axiosClient from '../../axios';
+import axiosClient from '../../../axios';
 import { Link, useNavigate } from "react-router-dom";
 
-const SignIn = ({ setIsAuth }) => {
+const AdminSignIn = ({ setIsAdmin }) => {
 
   const [isLoading, setIsLoading] = useState(false)
   const [showError, setShowError] = useState(null)
@@ -22,17 +22,17 @@ const SignIn = ({ setIsAuth }) => {
 
   const { mutateAsync } = useMutation({
     mutationFn: (data) => {
-      return axiosClient.post("/auth/signin", data)
+      return axiosClient.post("/auth/admin/signin", data)
     },
     onSuccess: (data) => {
-      const { name, userId, token, email } = data.data;
-      localStorage.setItem('isAuth', true)
-      localStorage.setItem('userid', userId)
-      localStorage.setItem('username', name)
+      const { name, adminId, token, email } = data.data;
+      localStorage.setItem('isAdmin', true)
+      localStorage.setItem('adminid', adminId)
+      localStorage.setItem('adminname', name)
       localStorage.setItem('token', token)
       localStorage.setItem('email', email)
-      setIsAuth(true)
-      navigate("/")
+      setIsAdmin(true)
+      navigate("/admin/tags")
     },
     onError: (error) => {
       if (error.response && error.response.status === 400) {
@@ -57,11 +57,11 @@ const SignIn = ({ setIsAuth }) => {
         <div className="p-4 sm:p-7">
           <div className="text-center">
             <h1 className="block text-2xl font-bold text-gray-900 dark:text-white">
-              Sign In
+              Admin Sign In
             </h1>
             <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
               Don't have an account?
-              <Link to={"/signup"}
+              <Link to={"/admin/signup"}
                 className="text-blue-600 decoration-2 hover:underline font-medium"
               >
                 {" "}  Sign Up
@@ -145,7 +145,7 @@ const SignIn = ({ setIsAuth }) => {
                     <label htmlFor="password" className="block text-sm mb-2 dark:text-white">
                       Password
                     </label>
-                    <Link to={"/forgot_password"}
+                    <Link to={"/admin/forgot_password"}
                       className="text-sm text-blue-600 decoration-2 hover:underline font-medium"
                     >
                       Forgot password?
@@ -224,4 +224,4 @@ const SignIn = ({ setIsAuth }) => {
   );
 }
 
-export default SignIn;
+export default AdminSignIn;

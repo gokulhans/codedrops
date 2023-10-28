@@ -60,12 +60,19 @@ const dropController = {
     getAllDropsByUser: async (req, res) => {
         try {
             const userId = req.params.userId; // Extract user ID from request parameters
-            console.log(userId);
             const drops = await Drop.find({ userid: userId }); // Find drops by user ID
-            console.log(drops);
             res.json({ msg: 'Drops found for the user', data: drops });
         } catch (error) {
             res.status(500).json({ msg: 'Error fetching drops for the user', error: error.message });
+        }
+    },
+    getAllDropsByTag: async (req, res) => {
+        try {
+            const tag = req.params.tag; // Extract tag from request parameters
+            const drops = await Drop.find({ tags: tag }); // Find drops by tag
+            res.json({ msg: 'Drops found for the tag', data: drops });
+        } catch (error) {
+            res.status(500).json({ msg: 'Error fetching drops for the tag', error: error.message });
         }
     },
 };
