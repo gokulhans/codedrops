@@ -15,7 +15,7 @@ const AddDrop = () => {
     const [showError, setShowError] = useState(null)
     const navigate = useNavigate();
 
-    const apiKey = import.meta.env.TINYMCE_API_KEY;
+    const apiKey = import.meta.env.VITE_TINYMCE_API_KEY;
 
     const Tags = [
         "JavaScript",

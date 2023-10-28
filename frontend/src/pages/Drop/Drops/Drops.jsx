@@ -40,7 +40,6 @@ const Drops = () => {
 
     return (
         <>
-
             <div className="flex align-center justify-self-center w-full">
                 <DropBlocksList dropBlocks={drops} title={"Code Drops"} />
             </div >
