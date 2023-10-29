@@ -1,6 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-const Footer = () => {
+const Footer = ({ isAuth }) => {
   return (
     <>
       <footer className="bg-white shadow dark:bg-gray-900">
@@ -30,11 +31,13 @@ const Footer = () => {
                   Privacy Policy
                 </a>
               </li>
-              <li>
-                <a href="#" className="mr-4 hover:underline md:mr-6 ">
-                  Licensing
-                </a>
-              </li>
+              {!isAuth &&
+                <li>
+                  <Link to={"/admin"} className="mr-4 hover:underline md:mr-6 ">
+                    Admin
+                  </Link>
+                </li>
+              }
               <li>
                 <a href="#" className="hover:underline">
                   Contact

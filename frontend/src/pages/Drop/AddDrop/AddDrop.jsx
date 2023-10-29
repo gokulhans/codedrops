@@ -2,40 +2,35 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Editor } from "@tinymce/tinymce-react";
 import { useRef } from "react";
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import axiosClient from '../../../axios';
+import convertToSlug from "../../../utils/slugify";
 
 const AddDrop = () => {
-    const [snippetName, setSnippetName] = useState("");
-    const [codeBlock, setCodeBlock] = useState("");
-    const [description, setDescription] = useState("");
+    const [dropName, setdropName] = useState("");
     const [selectedTags, setSelectedTags] = useState([]);
     const editorRef = useRef(null);
     const [isLoading, setIsLoading] = useState(false)
     const [showError, setShowError] = useState(null)
     const navigate = useNavigate();
+    const [Tags, setTags] = useState([])
 
     const apiKey = import.meta.env.VITE_TINYMCE_API_KEY;
 
-    const Tags = [
-        "JavaScript",
-        "React",
-        "Nodejs",
-        "HTML",
-        "CSS",
-        "Style",
-        "TailwindCSS",
-        "MongoDB",
-        "Flutter",
-        "Php",
-        "Ajax",
-        "Jquery",
-        "Bootstrap",
-        "Sass",
-        "Laravel",
-        "TypeScript",
-        "ExpressJs",
-    ];
+    const fetchTags = async () => {
+        const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
+        const headers = {
+            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+        };
+        const response = await axiosClient.get('/tag', { headers });
+        setTags(response.data.data);
+        return response.data.data; // Assuming your API response contains an array of drops
+    };
+
+    const { data: tags, isError, error } = useQuery({
+        queryKey: ['tags'],
+        queryFn: fetchTags,
+    });
 
     const handleTagToggle = (tag) => {
         if (selectedTags.includes(tag)) {
@@ -55,12 +50,17 @@ const AddDrop = () => {
             dropbody = editorRef.current.getContent();
         }
         let data = {
-            dropname: snippetName,
+            dropname: dropName,
             dropbody: dropbody,
             tags: selectedTags,
             username: authorname,
             userid: authorid,
         }
+        const slug = convertToSlug(data.dropname);
+        data = {
+            ...data,
+            slug: slug
+        };
         setIsLoading(true);
         mutateAsync(data);
     };
@@ -94,17 +94,17 @@ const AddDrop = () => {
                     <form className="mx-auto px-6 pt-6 pb-2 rounded-md">
                         <div className="mb-4">
                             <label
-                                htmlFor="snippetName"
+                                htmlFor="dropName"
                                 className="block text-sm mb-2 dark:text-white"
                             >
                                 Drop Name
                             </label>
                             <input
                                 type="text"
-                                id="snippetName"
-                                name="snippetName"
+                                id="dropName"
+                                name="dropName"
                                 onChange={(e) => {
-                                    setSnippetName(e.target.value);
+                                    setdropName(e.target.value);
                                 }}
                                 className="border py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400"
                             />
@@ -169,7 +169,7 @@ const AddDrop = () => {
                             <div className="flex flex-wrap">
                                 {Tags.map((tag) => (
                                     <div
-                                        key={tag}
+                                        key={tag._id}
                                         onClick={() => handleTagToggle(tag)}
                                         className={`cursor-pointer border border-1 border-green-700 rounded-full  px-3 py-1 m-2 
                         ${selectedTags.includes(tag)
@@ -177,7 +177,7 @@ const AddDrop = () => {
                                                 : "text-green-600"
                                             }`}
                                     >
-                                        {tag}
+                                        {tag.tagName}
                                     </div>
                                 ))}
                             </div>

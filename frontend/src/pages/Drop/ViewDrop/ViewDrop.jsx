@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import ShimmerDropBlock from "./../../../components/Shimmer/ShimmerDropBlock";
 import { useQuery } from '@tanstack/react-query'
 import axiosClient from "../../../axios";
-import ShimmerCodeBlock from "./../../../components/Shimmer/ShimmerDropBlock";
 import DropBlock from "../../../components/DropBlock/DropBlock";
 
 
@@ -12,11 +11,12 @@ const ViewDrop = () => {
     const { id } = useParams();
 
     const fetchDrop = async () => {
-        const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
-        const headers = {
-            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
-        };
-        const response = await axiosClient.get(`/drop/${id}`, { headers });
+        // const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
+        // const headers = {
+        //     Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+        // };
+        // const response = await axiosClient.get(`/drop/${id}`, { headers });
+        const response = await axiosClient.get(`/drop/${id}`);
         return response.data.data; // Assuming your API response contains an array of drops
     };
 
@@ -45,7 +45,7 @@ const ViewDrop = () => {
     return (
         <>
             <div className="min-h-screen flex align-center justify-self-center w-full max-w-6xl">
-                <div className="container mx-auto my-auto pt-12">
+                <div className="mx-auto my-auto pt-12">
                     <DropBlock
                         dropname={drop.dropname}
                         dropbody={drop.dropbody}

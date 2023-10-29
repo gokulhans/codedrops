@@ -30,20 +30,21 @@ const SignUp = ({ setIsAuth }) => {
             return axiosClient.post('/auth/signup', data)
         },
         onSuccess: (data) => {
-            const { name, userId, token } = data.data;
+            const { name, userId, token, email } = data.data;
             localStorage.setItem('isAuth', true)
             localStorage.setItem('userid', userId)
             localStorage.setItem('username', name)
             localStorage.setItem('token', token)
+            localStorage.setItem('email', email)
             setIsAuth(true)
             navigate("/")
         },
         onError: (error) => {
-            if (error.response && error.response.status === 400 && error.response.data.error === 'Email address is already in use') {
-                setShowError('Email address is already in use');
+            if (error.response && error.response.status === 400) {
+                setShowError(error.response.data.error);
                 console.error('Duplicate email error:', error.response.data.error);
             } else {
-                setShowError('Internal Server Error');
+                setShowError(error.response.data.error);
                 console.error('Internal Server Error:', error.response.data.error);
             }
             setIsLoading(false)
