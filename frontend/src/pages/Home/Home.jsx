@@ -15,8 +15,7 @@ const Home = () => {
         <IconSection />
         {/* <Feature /> */}
         {/* <Faqs /> */}
-        <div className='container'>
-
+        <div className='flex items-center justify-center'>
         <Drops />
         </div>
         <Cto />
