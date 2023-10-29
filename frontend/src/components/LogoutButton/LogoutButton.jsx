@@ -5,7 +5,7 @@ const LogoutButton = ({ setIsAuth }) => {
     const navigate = useNavigate();
     const handleLogout = () => {
         localStorage.removeItem('isAuth');
-        localStorage.removeItem('userId');
+        localStorage.removeItem('userid'); 
         localStorage.removeItem('username');
         localStorage.removeItem('token');
         localStorage.removeItem('email');
