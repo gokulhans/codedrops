@@ -7,6 +7,7 @@ import axiosClient from "../../axios";
 const DropBlock = ({
     dropname,
     dropbody,
+    slug,
     tags,
     username,
     userid,
@@ -38,15 +39,10 @@ const DropBlock = ({
 
     const handleShare = () => {
         navigator.clipboard.writeText(
-            `${import.meta.env.VITE_FRONTEND_URL}#/drop/${dropid}/${generateSlug(dropname)}`
+            `${import.meta.env.VITE_FRONTEND_URL}#/drop/${dropid}/${slug}`
         );
         setIsShared(true);
     };
-
-    function generateSlug(dropname) {
-        const slug = dropname.toLowerCase().replace(/\s+/g, "-");
-        return slug;
-    }
 
     // let navigate = useNavigate()
 
@@ -81,7 +77,7 @@ const DropBlock = ({
     return (
         <div className="bg-white border border-gray-200 rounded-xl shadow-lg dark:bg-gray-900 dark:border-gray-700 p-5 mb-4">
             <div className="flex items-center mb-2">
-                <Link to={`/drop/${dropid}/${generateSlug(dropname)}`}>
+                <Link to={`/drop/${dropid}/${slug}`}>
                     <h2 className="text-xl font-semibold mb-2">{dropname}</h2>
                 </Link>
                 <div className="ml-auto mb-2 space-x-2 flex">
@@ -159,11 +155,11 @@ const DropBlock = ({
                 <div className="flex space-x-2 mt-2">
                     {tags.map((tag, index) => (
                         <Link
-                            to={`/tag/${tag}`}
+                            to={`/tag/${tag._id}/${tag.tagName}`}
                             key={index}
                             className="bg-green-600 text-green-50 py-1 px-2 rounded-full text-xs"
                         >
-                            {tag}
+                            {tag.tagName}
                         </Link>
                     ))}
                 </div>

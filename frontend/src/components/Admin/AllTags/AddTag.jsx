@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import axiosClient from '../../../axios';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form'
 import * as yup from "yup"
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
+import convertToSlug from '../../../utils/slugify';
 
 const AddTag = () => {
 
@@ -12,6 +13,8 @@ const AddTag = () => {
     const [showError, setShowError] = useState(null);
 
     const navigate = useNavigate()
+
+    const queryClient = useQueryClient();
 
     const schema = yup.object().shape({
         tagName: yup.string().required('Tag Name is required'),
@@ -30,8 +33,9 @@ const AddTag = () => {
             return axiosClient.post('/tag', data, { headers });
         },
         onSuccess: () => {
-            navigate("/admin/tags")
-            window.location.reload()
+            queryClient.invalidateQueries('tags');
+            setIsLoading(false)
+            closeModal()
         },
         onError: (error) => {
             setShowError(error);
@@ -40,8 +44,18 @@ const AddTag = () => {
     })
 
     const onSubmit = (data) => {
+        const slug = convertToSlug(data.tagName);
+        data = {
+            ...data,
+            slug: slug
+        };
         setIsLoading(true)
         mutateAsync(data);
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('hs-modal-signin'); // Get the modal element
+        HSOverlay.close(modal); // Close the modal using HSOverlay.close() method
     }
 
     return (

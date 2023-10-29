@@ -1,12 +1,51 @@
 import React from 'react'
+import axiosClient from '../../../axios';
+import { useQuery } from '@tanstack/react-query';
+import ShimmerDropBlock from "./../../../components/Shimmer/ShimmerDropBlock";
+import AdminlistTile from './AdminListTile';
+
+const fetchadmins = async () => {
+    const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
+    const headers = {
+        Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+    };
+    const response = await axiosClient.get('/admin/admins', { headers });
+    return response.data; // Assuming your API response contains an array of admins
+};
 
 const AllAdmins = () => {
+
+
+    const { data: admins, isLoading, isError, error } = useQuery({
+        queryKey: ['admins'],
+        queryFn: fetchadmins, // Use the function directly here
+    });
+
+    if (isLoading) {
+        return <>
+            <div className="w-full pt-10 px-4 sm:px-6 md:px-8 lg:pl-72">
+
+                <div className="w-full">
+                    <ShimmerDropBlock />
+                    <ShimmerDropBlock />
+                    <ShimmerDropBlock />
+                    <ShimmerDropBlock />
+                </div>
+            </div>
+        </>
+    }
+
+    if (isError) {
+        return <div>Error: {error.message}</div>;
+    }
+
+
     return (
         <>
             <div className="w-full pt-10 px-4 sm:px-6 md:px-8 lg:pl-72">
 
                 {/* Table Section */}
-                <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+                <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto my-auto">
                     {/* Card */}
                     <div className="flex flex-col">
                         <div className="-m-1.5 overflow-x-auto">
@@ -24,33 +63,13 @@ const AllAdmins = () => {
                                         </div>
                                         <div>
                                             <div className="inline-flex gap-x-2">
-                                                <a
+                                                {/* <a
                                                     className="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
                                                     href="#"
                                                 >
                                                     View all
-                                                </a>
-                                                <a
-                                                    className="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
-                                                    href="#"
-                                                >
-                                                    <svg
-                                                        className="w-3 h-3"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        width={16}
-                                                        height={16}
-                                                        viewBox="0 0 16 16"
-                                                        fill="none"
-                                                    >
-                                                        <path
-                                                            d="M2.63452 7.50001L13.6345 7.5M8.13452 13V2"
-                                                            stroke="currentColor"
-                                                            strokeWidth={2}
-                                                            strokeLinecap="round"
-                                                        />
-                                                    </svg>
-                                                    Add Admin
-                                                </a>
+                                                </a> */}
+                                                {/* <AddTag /> */}
                                             </div>
                                         </div>
                                     </div>
@@ -69,6 +88,13 @@ const AllAdmins = () => {
                                                         </span>
                                                     </div>
                                                 </th>
+                                                {/* <th scope="col" className="px-6 py-3 text-left">
+                                                    <div className="flex items-center gap-x-2">
+                                                        <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                                            Email
+                                                        </span>
+                                                    </div>
+                                                </th> */}
                                                 <th scope="col" className="px-6 py-3 text-left">
                                                     <div className="flex items-center gap-x-2">
                                                         <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
@@ -76,6 +102,7 @@ const AllAdmins = () => {
                                                         </span>
                                                     </div>
                                                 </th>
+
                                                 <th scope="col" className="px-6 py-3 text-left">
                                                     <div className="flex items-center gap-x-2">
                                                         <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
@@ -83,65 +110,19 @@ const AllAdmins = () => {
                                                         </span>
                                                     </div>
                                                 </th>
-                                                <th scope="col" className="px-6 py-3 text-right" />
+                                                <th scope="col" className="px-6 py-3 text-left">
+                                                    <div className="flex items-center gap-x-2">
+                                                        <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                                            Actions
+                                                        </span>
+                                                    </div>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                                            <tr>
-                                                <td className="h-px w-px whitespace-nowrap">
-                                                    <div className="px-6 py-3">
-                                                        <div className="flex items-center gap-x-3">
-                                                            <div className="grow">
-                                                                <span className="block text-sm font-semibold text-gray-800 dark:text-gray-200">
-                                                                    Christina Bersh
-                                                                </span>
-                                                                <span className="block text-sm text-gray-500">
-                                                                    christina@site.com
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="h-px w-72 whitespace-nowrap">
-                                                    <div className="px-6 py-3">
-                                                        <span className="block text-sm font-semibold text-gray-800 dark:text-gray-200">
-                                                            Director
-                                                        </span>
-                                                        <span className="block text-sm text-gray-500">
-                                                            Human resources
-                                                        </span>
-                                                    </div>
-                                                </td>
-                                                <td className="h-px w-px whitespace-nowrap">
-                                                    <div className="px-6 py-3">
-                                                        <span className="text-sm text-gray-500">
-                                                            28 Dec, 12:12
-                                                        </span>
-                                                    </div>
-                                                </td>
-                                                <td className="h-px w-px whitespace-nowrap">
-                                                    <div className="px-6 py-1.5 flex space-x-2">
-                                                        <a
-                                                            className="inline-flex items-center gap-x-1.5 text-sm dark:text-gray-300 text-gray-600 decoration-2 hover:underline font-medium"
-                                                            href="#"
-                                                        >
-                                                            View
-                                                        </a>
-                                                        <a
-                                                            className="inline-flex items-center gap-x-1.5 text-sm text-blue-600 decoration-2 hover:underline font-medium"
-                                                            href="#"
-                                                        >
-                                                            Edit
-                                                        </a>
-                                                        <a
-                                                            className="inline-flex items-center gap-x-1.5 text-sm text-red-600 decoration-2 hover:underline font-medium"
-                                                            href="#"
-                                                        >
-                                                            Delete
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                            {admins.map((admin) => (
+                                                <AdminlistTile key={admin._id} admin={admin} />
+                                            ))}
 
                                         </tbody>
                                     </table>
@@ -151,9 +132,9 @@ const AllAdmins = () => {
                                         <div>
                                             <p className="text-sm text-gray-600 dark:text-gray-400">
                                                 <span className="font-semibold text-gray-800 dark:text-gray-200">
-                                                    6
+                                                    {admins.length}
                                                 </span>{" "}
-                                                results
+                                                {admins.length > 1 ? "results" : "result"}
                                             </p>
                                         </div>
                                         <div>

@@ -11,11 +11,12 @@ const ViewDrop = () => {
     const { id } = useParams();
 
     const fetchDrop = async () => {
-        const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
-        const headers = {
-            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
-        };
-        const response = await axiosClient.get(`/drop/${id}`, { headers });
+        // const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
+        // const headers = {
+        //     Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+        // };
+        // const response = await axiosClient.get(`/drop/${id}`, { headers });
+        const response = await axiosClient.get(`/drop/${id}`);
         return response.data.data; // Assuming your API response contains an array of drops
     };
 

@@ -1,10 +1,10 @@
-const Tag = require('../models/Tag');
+const Tag = require('../models/tag');
 
 const tagController = {
     createTag: async (req, res) => {
         try {
-            const { tagName } = req.body;
-            const newTag = new Tag({ tagName });
+            const { tagName, slug } = req.body;
+            const newTag = new Tag({ tagName, slug });
             await newTag.save();
             res.json({ msg: 'Tag created', data: newTag });
         } catch (error) {
@@ -33,15 +33,6 @@ const tagController = {
             console.error(error);
             res.status(500).json({ error: 'Internal Server Error' });
         }
-    },
-    dropTag: async (req, res) => {
-        Tag.collection.drop()
-            .then(() => {
-                console.log('Tag collection dropped successfully.');
-            })
-            .catch((err) => {
-                console.error('Error dropping Tag collection:', err);
-            });
     },
 };
 

@@ -6,12 +6,16 @@ const dropSchema = new Schema({
         type: String,
         required: true
     },
+    slug: {
+        type: String,
+        required: true
+    },
     dropbody: {
         type: String,
         required: true
     },
     tags: {
-        type: [String],
+        type: [],
         required: true
     },
     username: {

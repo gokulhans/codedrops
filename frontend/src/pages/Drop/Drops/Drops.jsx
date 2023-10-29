@@ -9,11 +9,12 @@ import axiosClient from '../../../axios';
 const Drops = () => {
 
     const fetchDrops = async () => {
-        const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
-        const headers = {
-            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
-        };
-        const response = await axiosClient.get('/drop', { headers });
+        // const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
+        // const headers = {
+        //     Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+        // };
+        // const response = await axiosClient.get('/drop', { headers });
+        const response = await axiosClient.get('/drop');
         return response.data; // Assuming your API response contains an array of drops
     };
 

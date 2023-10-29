@@ -7,13 +7,14 @@ import ShimmerDropBlock from "../../components/Shimmer/ShimmerDropBlock";
 import { useParams } from "react-router-dom";
 
 const Tag = () => {
-    const { tag } = useParams()
+    const { id, tag } = useParams()
     const fetchUserDrops = async () => {
-        const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
-        const headers = {
-            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
-        };
-        const response = await axiosClient.get(`/drop/tag/${tag}`, { headers });
+        // const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
+        // const headers = {
+        //     Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+        // };
+        // const response = await axiosClient.get(`/drop/tag/${id}`, { headers });
+        const response = await axiosClient.get(`/drop/tag/${id}`);
         return response.data; // Assuming your API response contains an array of drops
     };
 
@@ -40,7 +41,7 @@ const Tag = () => {
 
     return (
         <div className="flex align-center justify-self-center w-full">
-            <DropBlocksList dropBlocks={drops} />
+            <DropBlocksList dropBlocks={drops} title={`${tag} Drops`} />
         </div>
     );
 };

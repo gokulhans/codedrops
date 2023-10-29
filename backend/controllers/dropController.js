@@ -3,8 +3,8 @@ const Drop = require('../models/drop');
 const dropController = {
     create: async (req, res) => {
         try {
-            const { dropname, dropbody, tags, username, userid } = req.body;
-            const newDrop = new Drop({ dropname, dropbody, tags, username, userid });
+            const { dropname, dropbody, tags, slug, username, userid } = req.body;
+            const newDrop = new Drop({ dropname, dropbody, tags, slug, username, userid });
             await newDrop.save();
             res.json({ msg: 'Drop created', data: newDrop });
         } catch (error) {
@@ -34,8 +34,8 @@ const dropController = {
     },
     updateById: async (req, res) => {
         try {
-            const { dropname, dropbody, tags, username, userid } = req.body;
-            const updatedDrop = await Drop.findOneAndUpdate({ _id: req.params.id }, { dropname, dropbody, tags, username, userid }, { new: true });
+            const { dropname, slug, dropbody, tags, username, userid } = req.body;
+            const updatedDrop = await Drop.findOneAndUpdate({ _id: req.params.id }, { dropname, slug, dropbody, tags, username, userid }, { new: true });
             if (updatedDrop) {
                 res.json({ msg: 'Drop updated', data: updatedDrop });
             } else {
@@ -68,8 +68,8 @@ const dropController = {
     },
     getAllDropsByTag: async (req, res) => {
         try {
-            const tag = req.params.tag; // Extract tag from request parameters
-            const drops = await Drop.find({ tags: tag }); // Find drops by tag
+            const tagId = req.params.id; // Extract tag from request parameters
+            const drops = await Drop.find({ 'tags._id': tagId }); // Find drops by tag
             res.json({ msg: 'Drops found for the tag', data: drops });
         } catch (error) {
             res.status(500).json({ msg: 'Error fetching drops for the tag', error: error.message });

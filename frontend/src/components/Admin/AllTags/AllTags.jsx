@@ -1,7 +1,7 @@
 import React from 'react'
 import AddTag from './AddTag'
 import axiosClient from '../../../axios';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import ShimmerDropBlock from "./../../../components/Shimmer/ShimmerDropBlock";
 import TaglistTile from './TaglistTile';
 
@@ -99,6 +99,13 @@ const AllTags = () => {
                                                     <div className="flex items-center gap-x-2">
                                                         <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                                             Created
+                                                        </span>
+                                                    </div>
+                                                </th>
+                                                <th scope="col" className="px-6 py-3 text-left">
+                                                    <div className="flex items-center gap-x-2">
+                                                        <span className="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                                            Slug
                                                         </span>
                                                     </div>
                                                 </th>

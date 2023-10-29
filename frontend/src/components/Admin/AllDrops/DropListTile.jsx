@@ -1,9 +1,10 @@
 import React from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axiosClient from '../../../axios';
+import { Link } from 'react-router-dom';
 
 
-const TaglistTile = ({ tag }) => {
+const DroplistTile = ({ drop }) => {
 
     const queryClient = useQueryClient();
 
@@ -13,48 +14,54 @@ const TaglistTile = ({ tag }) => {
             const headers = {
                 Authorization: `Bearer ${token}`,
             };
-            return axiosClient.delete(`/tag/${tag._id}`, { headers });
+            return axiosClient.delete(`/drop/${drop._id}`, { headers });
         },
         onSuccess: () => {
             // Invalidate and refetch queries related to the updated data
-            queryClient.invalidateQueries('tags');
+            queryClient.invalidateQueries('drops');
         },
     });
 
     const handleDelete = async () => {
         const isConfirmed = window.confirm(
-            "Are you sure you want to delete this Tag ?"
+            "Are you sure you want to delete this Drop ?"
         );
         if (isConfirmed) {
             mutateAsync();
         }
     };
 
-
     return (
         <><tr>
             <td className="h-px w-px whitespace-nowrap">
                 <div className="px-6 py-3">
-                    <div className="flex items-center gap-x-3">
+                    <Link to={`/drop/${drop._id}/${drop.slug}`} className="flex items-center gap-x-3">
                         <div className="grow">
                             <span className="block text-sm font-semibold text-gray-800 dark:text-gray-200">
-                                {tag.tagName}
+                                {drop.dropname}
                             </span>
                         </div>
-                    </div>
+                    </Link>
                 </div>
             </td>
             <td className="h-px w-px whitespace-nowrap">
                 <div className="px-6 py-3">
                     <span className="text-sm text-gray-500">
-                        {tag.slug}
+                        {drop.slug}
                     </span>
                 </div>
             </td>
             <td className="h-px w-px whitespace-nowrap">
                 <div className="px-6 py-3">
                     <span className="text-sm text-gray-500">
-                        {new Date(tag.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' })}
+                        {drop.username}
+                    </span>
+                </div>
+            </td>
+            <td className="h-px w-px whitespace-nowrap">
+                <div className="px-6 py-3">
+                    <span className="text-sm text-gray-500">
+                        {new Date(drop.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' })}
                     </span>
                 </div>
             </td>
@@ -62,13 +69,13 @@ const TaglistTile = ({ tag }) => {
                 <div className="px-6 py-1.5 flex space-x-2">
                     {/* <a
                 className="inline-flex items-center gap-x-1.5 text-sm dark:text-gray-300 text-gray-600 decoration-2 hover:underline font-medium"
-                href={`#view/${tag._id}`}
+                href={`#view/${drop._id}`}
             >
                 View
             </a>
             <a
                 className="inline-flex items-center gap-x-1.5 text-sm text-blue-600 decoration-2 hover:underline font-medium"
-                href={`#edit/${tag._id}`}
+                href={`#edit/${drop._id}`}
             >
                 Edit
             </a> */}
@@ -80,8 +87,8 @@ const TaglistTile = ({ tag }) => {
                     </button>
                 </div>
             </td>
-        </tr></>
+        </tr ></>
     )
 }
 
-export default TaglistTile
+export default DroplistTile

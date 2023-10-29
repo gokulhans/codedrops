@@ -38,14 +38,14 @@ function App() {
             <Route path="/join_waitlist" element={<Waitlist isAuth={isAuth} />} />
             {!isAuth ? (
               <>
-                <Route path="/" element={<Home isAuth={isAuth} />} />
+                <Route path="/" element={isAdmin ? <Navigate to={"/admin/admins"} /> : <Home isAuth={isAuth} />} />
                 <Route path="/signin" element={<SignIn setIsAuth={setIsAuth} />} />
                 <Route path="/signup" element={<SignUp setIsAuth={setIsAuth} />} />
                 <Route path="/forgot_password" element={<Forgot />} />
                 <Route path="/admin/signup" element={<AdminSignUp setIsAdmin={setIsAdmin} />} />
                 <Route path="/admin/signin" element={<AdminSignIn setIsAdmin={setIsAdmin} />} />
                 <Route path="/admin/forgot_password" element={<AdminForgot />} />
-                <Route path="/admin" element={isAdmin ? <Admin isAuth={isAdmin} /> : <Navigate to={"/admin/signin"} />} />
+                <Route path="/admin" element={isAdmin ? <Navigate to={"/admin/admins"} /> : <Navigate to={"/admin/signin"} />} />
                 <Route path="/admin/:active" element={isAdmin ? <Admin isAuth={isAdmin} /> : <Navigate to={"/admin/signin"} />} />
               </>
             ) : (
@@ -53,13 +53,13 @@ function App() {
                 <Route exact path="/" element={<Home isAuth={isAuth} />} />
                 <Route path="/drop/add" element={<AddDrop isAuth={isAuth} />} />
                 <Route path="/drop/edit/:id" element={<EditDrop isAuth={isAuth} />} />
-                <Route path="/drops" element={<Drops isAuth={isAuth} />} />
-                <Route path="/drop/:id/:title" element={<ViewDrop isAuth={isAuth} />} />
-                <Route path="/profile/:id/:user" element={<Profile isAuth={isAuth} />} />
-                <Route path="/tag/:tag" element={<Tag isAuth={isAuth} />} />
                 <Route path="*" element={<Error isAuth={isAuth} />} />
               </>
             )}
+            <Route path="/drops" element={<Drops isAuth={isAuth} />} />
+            <Route path="/drop/:id/:title" element={<ViewDrop isAuth={isAuth} />} />
+            <Route path="/profile/:id/:user" element={<Profile isAuth={isAuth} />} />
+            <Route path="/tag/:id/:tag" element={<Tag isAuth={isAuth} />} />
           </Routes>
         </div>
         {isAdmin ? <>

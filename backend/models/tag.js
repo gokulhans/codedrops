@@ -1,13 +1,17 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const tagSchema = new mongoose.Schema(
-    {
-        tagName: {
-            type: String,
-            required: true,
-        },
+const tagSchema = new Schema({
+    tagName: {
+        type: String,
+        required: true,
     },
-    { timestamps: true } // Adds createdAt and updatedAt timestamps to the schema
+    slug: {
+        type: String,
+        required: true,
+    },
+},
+    { timestamps: true }
 );
 
 module.exports = mongoose.model('Tag', tagSchema);
