@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import DropBlocksList from "../../../components/DropBlock/DropBlockList";
+import DropBlocksList from "../../../components/Dropblock/DropBlockList";
 import ShimmerDropBlock from "./../../../components/Shimmer/ShimmerDropBlock";
 import ShimmerSearch from "../../../components/Shimmer/ShimmerSearch";
 import { useQuery } from '@tanstack/react-query'

@@ -27,7 +27,7 @@ function App() {
     isAdmin, setIsAdmin] = useState(localStorage.getItem("isAdmin"));
   return (
     <>
-      <div className='dark:bg-gray-900 dark:text-gray-50'>
+      <div className='bg-blue-50 dark:bg-gray-900 dark:text-gray-50'>
         {isAdmin ? <>
           <AdminNavbar isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
         </> : <>
