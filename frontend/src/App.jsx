@@ -35,7 +35,6 @@ function App() {
         </>}
         <div className="pt-16 min-h-screen flex flex-col items-center justify-center">
           <Routes>
-            <Route path="/join_waitlist" element={<Waitlist isAuth={isAuth} />} />
             {!isAuth ? (
               <>
                 <Route path="/" element={isAdmin ? <Navigate to={"/admin/admins"} /> : <Home isAuth={isAuth} />} />
@@ -60,6 +59,7 @@ function App() {
             <Route path="/drop/:id/:title" element={<ViewDrop isAuth={isAuth} />} />
             <Route path="/profile/:id/:user" element={<Profile isAuth={isAuth} />} />
             <Route path="/tag/:id/:tag" element={<Tag isAuth={isAuth} />} />
+            <Route path="/join_waitlist" element={<Waitlist isAuth={isAuth} />} />
           </Routes>
         </div>
         {isAdmin ? <>

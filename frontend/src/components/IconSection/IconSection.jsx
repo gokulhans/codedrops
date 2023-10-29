@@ -14,8 +14,8 @@ const IconSection = () => {
                             </svg>
                         </div>
                         <div className="mt-5">
-                            <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Responsive</h3>
-                            <p className="mt-1 text-gray-600 dark:text-gray-400">Responsive, and mobile-first project on the web</p>
+                            <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Effortless</h3>
+                            <p className="mt-1 text-gray-600 dark:text-gray-400">Effortless Snippet Management</p>
                         </div>
                     </div>
                     {/* End Icon Block */}
@@ -30,8 +30,8 @@ const IconSection = () => {
                             </svg>
                         </div>
                         <div className="mt-5">
-                            <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Customizable</h3>
-                            <p className="mt-1 text-gray-600 dark:text-gray-400">Components are easily customized and extendable</p>
+                            <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Sharing</h3>
+                            <p className="mt-1 text-gray-600 dark:text-gray-400">Sharing made simple</p>
                         </div>
                     </div>
                     {/* End Icon Block */}
@@ -45,8 +45,8 @@ const IconSection = () => {
                             </svg>
                         </div>
                         <div className="mt-5">
-                            <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Documentation</h3>
-                            <p className="mt-1 text-gray-600 dark:text-gray-400">Every component and plugin is well documented</p>
+                            <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Quick</h3>
+                            <p className="mt-1 text-gray-600 dark:text-gray-400">Quick and Easy Saving</p>
                         </div>
                     </div>
                     {/* End Icon Block */}
@@ -60,8 +60,8 @@ const IconSection = () => {
                             </svg>
                         </div>
                         <div className="mt-5">
-                            <h3 className="text-lg font-semibold text-gray-800 dark:text-white">24/7 Support</h3>
-                            <p className="mt-1 text-gray-600 dark:text-gray-400">Contact us 24 hours a day, 7 days a week</p>
+                            <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Collaborative</h3>
+                            <p className="mt-1 text-gray-600 dark:text-gray-400">Collaborative Learning</p>
                         </div>
                     </div>
                     {/* End Icon Block */}

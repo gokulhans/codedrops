@@ -7,7 +7,7 @@ import ShimmerDropBlock from "../../components/Shimmer/ShimmerDropBlock";
 import { useParams } from "react-router-dom";
 
 const Profile = () => {
-    const { id } = useParams()
+    const { id, user } = useParams()
     const fetchUserDrops = async () => {
         // const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
         // const headers = {
@@ -41,7 +41,7 @@ const Profile = () => {
 
     return (
         <div className="flex align-center justify-self-center w-full">
-            <DropBlocksList dropBlocks={drops} />
+            <DropBlocksList dropBlocks={drops} title={`Drops By ${user}`} />
         </div>
     );
 };

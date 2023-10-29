@@ -5,6 +5,7 @@ import Faqs from '../../components/Faqs/Faqs'
 import Cto from '../../components/Cto/Cto'
 import Contact from '../../components/Contact/Contact'
 import Hero from '../../components/Hero/Hero'
+import Drops from '../Drop/Drops/Drops'
 
 const Home = () => {
   return (
@@ -12,10 +13,14 @@ const Home = () => {
       <div className='p-3 sm:p-8 space-y-6 sm:space-y-12'>
         <Hero />
         <IconSection />
-        <Feature />
-        <Faqs />
+        {/* <Feature /> */}
+        {/* <Faqs /> */}
+        <div className='container'>
+
+        <Drops />
+        </div>
         <Cto />
-        <Contact />
+        {/* <Contact /> */}
       </div>
     </>
   )

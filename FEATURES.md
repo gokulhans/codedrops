@@ -1,25 +1,19 @@
 ## CodeDrops Features
 
-- [x] **Home Page Ui**
-- [ ] **Website Content Updation**
-- [x] **DarkMode**
-- [ ] **Sign Up**
-- [ ] **Sign In**
 - [ ] **Forgot Password**
-- [ ] **Logout**
-- [ ] **Drops Managment (Add/Edit/Delete/ViewAll/ViewOne/Share)**
-- [ ] **Rich Text Editor For adding Snippet**
 - [ ] **Profile Managment (Create/Edit)**
 - [ ] **Like (Add/Remove)**
 - [ ] **BookMark (Add/Remove/Bookmark as Folder)**
-- [ ] **Tags (Single Tag Page)**
-- [ ] **Search Drops**
-- [ ] **Filter Drops**
-- [ ] **Sort Drops**
+- [ ] **Tags Search and Add in add drop page**
+- [ ] **Search Drops directly from mongoDB**
+- [ ] **Filter Drops Option**
+- [ ] **Sort Drops Option**
 - [ ] **Syntax Highlight**
 - [ ] **SEO Helmet/React Seo**
-- [ ] **Contact Us Function**
-- [ ] **Subscribe Function**
-- [ ] **Link Social**
+- [ ] **Contact Us Form Function**
+- [ ] **Subscribe Button Function**
+- [ ] **Join WaitList**
+- [ ] **Database optimisation**
+- [ ] **About, Privacy Policy, Contact Pages to add**
 
 Feel free to check the boxes once each feature is implemented and tested successfully. Happy coding!
