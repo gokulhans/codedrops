@@ -1,5 +1,5 @@
 import React from "react";
-import DropBlocksList from "../../components/Dropblock/DropBlockList";
+import DropBlocksList from "../../components/DropBlock/DropBlockList";
 import axiosClient from "../../axios";
 import { useQuery } from "@tanstack/react-query";
 import ShimmerSearch from "../../components/Shimmer/ShimmerSearch";

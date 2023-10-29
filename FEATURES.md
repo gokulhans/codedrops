@@ -15,5 +15,6 @@
 - [ ] **Join WaitList**
 - [ ] **Database optimisation**
 - [ ] **About, Privacy Policy, Contact Pages to add**
+- [ ] **Private Drop Public Drop Option**
 
 Feel free to check the boxes once each feature is implemented and tested successfully. Happy coding!
