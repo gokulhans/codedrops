@@ -75,12 +75,18 @@ const DropBlock = ({
     };
 
     return (
-        <div className="bg-white border border-gray-200 rounded-xl shadow-lg dark:bg-gray-900 dark:border-gray-700 p-5 mb-4">
-            <div className="flex items-center mb-2">
-                <Link to={`/drop/${dropid}/${slug}`}>
-                    <h2 className="text-xl font-semibold mb-2">{dropname}</h2>
-                </Link>
-                <div className="ml-auto mb-2 space-x-2 flex">
+        <div className="bg-white p-12 border border-gray-200 dark:shadow-slate-800 rounded-xl shadow-lg dark:bg-gray-900 dark:border-gray-700 p-5 mb-4">
+            <div className="flex flex-col items-start mb-2">
+                {!hideview ?
+                    (<Link to={`/drop/${dropid}/${slug}`}>
+                        <h2 className="text-3xl max-w-2xl font-semibold mb-2">{dropname}</h2>
+                    </Link>) : (<>
+                        <div >
+                            <h2 className="text-3xl max-w-2xl font-semibold mb-2">{dropname}</h2>
+                        </div>
+                    </>)
+                }
+                <div className="my-3 space-x-2 flex">
                     <button
                         onClick={handleShare}
                         className="font-normal text-sm text-gray-600 dark:text-gray-400"
@@ -133,20 +139,27 @@ const DropBlock = ({
                             <CopyToast message="Copied!" onClose={closeToast} />
                         )}
                     </button>
+
+                    <Link
+                        to={`/profile/${userid}/${username}`}
+                        className="text-orange-700 text-xs dark:text-orange-500"
+                    >
+                        by <b>{username}</b>
+                    </Link>
                 </div>
             </div>
             {/* <Link to={`/drop/${dropid}/${generateSlug(dropname)}`}> */}
             <div className="my-5">
                 {isExpanded || expand ? (
                     <p
-                        className="text-black-600 text-sm whitespace-pre-line"
+                        className="prose dark:prose-invert"
                         dangerouslySetInnerHTML={{ __html: dropbody }}
-                    />
+                    ></p>
                 ) : (
                     <p
-                        className="text-black-600 text-sm whitespace-pre-line line-clamp-3"
+                        className="line-clamp-3 prose dark:prose-invert"
                         dangerouslySetInnerHTML={{ __html: dropbody }}
-                    />
+                    ></p>
                 )}
             </div>
             {/* </Link> */}

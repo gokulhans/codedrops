@@ -45,7 +45,7 @@ const ViewDrop = () => {
     return (
         <>
             <div className="min-h-screen flex align-center justify-self-center w-full max-w-6xl">
-                <div className="container mx-auto my-auto pt-12">
+                <div className="mx-auto my-auto pt-12">
                     <DropBlock
                         dropname={drop.dropname}
                         dropbody={drop.dropbody}
