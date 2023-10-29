@@ -25,6 +25,10 @@ const dropSchema = new Schema({
     userid: {
         type: String,
         required: true
+    },
+    public: {
+        type: Boolean,
+        default: true // Set the default value to true
     }
 },
     { timestamps: true }
