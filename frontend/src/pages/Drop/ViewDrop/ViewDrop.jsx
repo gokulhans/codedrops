@@ -50,8 +50,8 @@ const ViewDrop = () => {
                         dropname={drop.dropname}
                         dropbody={drop.dropbody}
                         tags={drop.tags}
-                        userid={drop.userid}
-                        username={drop.username}
+                        userid={drop.user._id}
+                        username={drop.user.name}
                         dropid={drop._id}
                         hideview={true}
                         expand={true}

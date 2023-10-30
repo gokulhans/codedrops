@@ -68,7 +68,6 @@ const EditDrop = () => {
     const handleEditDrop = async () => {
         let dropbody;
         let userid = localStorage.getItem("userid");
-        let username = localStorage.getItem("username");
         if (editorRef.current) {
             dropbody = editorRef.current.getContent();
         }
@@ -76,8 +75,7 @@ const EditDrop = () => {
             dropname: dropName,
             dropbody: dropbody,
             tags: selectedTags,
-            username: username,
-            userid: userid,
+            user: userid,
         }
         const slug = convertToSlug(data.dropname);
         data = {

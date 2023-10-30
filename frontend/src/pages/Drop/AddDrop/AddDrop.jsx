@@ -45,7 +45,6 @@ const AddDrop = () => {
     const handleAddDrop = async () => {
         let dropbody;
         let authorid = localStorage.getItem("userid");
-        let authorname = localStorage.getItem("username");
         if (editorRef.current) {
             dropbody = editorRef.current.getContent();
         }
@@ -53,8 +52,7 @@ const AddDrop = () => {
             dropname: dropName,
             dropbody: dropbody,
             tags: selectedTags,
-            username: authorname,
-            userid: authorid,
+            user: authorid,
         }
         const slug = convertToSlug(data.dropname);
         data = {

@@ -1,5 +1,4 @@
 ## CodeDrops Features
-
 - [ ] **Forgot Password**
 - [ ] **Profile Managment (Create/Edit)**
 - [ ] **Like (Add/Remove)**
@@ -18,5 +17,7 @@
 - [ ] **Private Drop Public Drop Option**
 - [ ] **Toast for Notification**
 - [ ] **Website Icon Update**
+- [ ] **Responsive site**
+- [ ] **Google Github Auth**
 
 Feel free to check the boxes once each feature is implemented and tested successfully. Happy coding!

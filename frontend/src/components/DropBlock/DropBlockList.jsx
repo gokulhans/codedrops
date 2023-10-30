@@ -36,8 +36,8 @@ const DropBlocksList = ({ dropBlocks, title }) => {
           dropbody={block.dropbody}
           tags={block.tags}
           slug={block.slug}
-          userid={block.userid}
-          username={block.username}
+          userid={block.user._id}
+          username={block.user.name}
           dropid={block._id}
         />
       ))}
