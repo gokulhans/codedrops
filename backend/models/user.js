@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema; 
+const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     name: {
@@ -15,10 +15,10 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    acceptTerms: {
+    isBlocked: {
         type: Boolean,
-        required: true
-    },
+        default: false  // Default value is set to false, indicating the user is not blocked initially
+    }
 },
     { timestamps: true }
 );

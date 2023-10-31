@@ -32,13 +32,13 @@ const AddDrop = () => {
         queryFn: fetchTags,
     });
 
-    const handleTagToggle = (tag) => {
-        if (selectedTags.includes(tag)) {
+    const handleTagToggle = (tagid) => {
+        if (selectedTags.includes(tagid)) {
             setSelectedTags(
-                selectedTags.filter((selectedTag) => selectedTag !== tag)
+                selectedTags.filter((selectedTag) => selectedTag !== tagid)
             );
         } else {
-            setSelectedTags([...selectedTags, tag]);
+            setSelectedTags([...selectedTags, tagid]);
         }
     };
 
@@ -149,7 +149,7 @@ const AddDrop = () => {
                                         "alignright alignjustify | bullist numlist outdent indent | " +
                                         "removeformat | help",
                                     content_style:
-                                        "body { font-family:'Poppins', sans-serif; font-size:14px }",
+                                        "body { font-family:'Poppins', sans-serif; font-size:16px }",
                                     skin: (document.body.classList.contains('dark') ? "oxide-dark" : "oxide"),
                                     content_css: (document.body.classList.contains('dark') ? "dark" : "default")
                                 }}
@@ -168,9 +168,9 @@ const AddDrop = () => {
                                 {Tags.map((tag) => (
                                     <div
                                         key={tag._id}
-                                        onClick={() => handleTagToggle(tag)}
-                                        className={`cursor-pointer border border-1 border-green-700 rounded-full  px-3 py-1 m-2 
-                        ${selectedTags.includes(tag)
+                                        onClick={() => handleTagToggle(tag._id)}
+                                        className={`cursor-pointer border border-1 border-green-700 rounded-full px-3 py-1 m-2 
+            ${selectedTags.includes(tag._id)
                                                 ? "bg-green-700 text-white"
                                                 : "text-green-600"
                                             }`}

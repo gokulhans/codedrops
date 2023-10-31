@@ -16,10 +16,10 @@ const dropSchema = new Schema({
         type: String,
         required: true
     },
-    tags: {
-        type: [],
-        required: true
-    },
+    tags: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Tag' // Reference to the Tag model
+    }],
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User' // Reference to the User model

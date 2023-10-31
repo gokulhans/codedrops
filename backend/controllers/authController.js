@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const authController = {
     signUp: async (req, res) => {
-        const { name, email, password, confirmPassword, acceptTerms } = req.body;
+        const { name, email, password } = req.body;
 
         // Hash the password
         const saltRounds = 10;
@@ -16,7 +16,6 @@ const authController = {
             name,
             email,
             password: hashedPassword,
-            acceptTerms,
         });
 
         try {
@@ -76,8 +75,10 @@ const authController = {
     signUpAdmin: async (req, res) => {
         const { name, email, password } = req.body;
 
+        console.log(name);
+
         // Check if the user's email matches the admin email you want to allow
-        const allowedAdminEmails = ['admin1@example.com',];
+        const allowedAdminEmails = ['admin1@example.com','admin2@example.com'];
 
         // Check if the provided email is in the list of allowed admin emails
         if (allowedAdminEmails.includes(email)) {

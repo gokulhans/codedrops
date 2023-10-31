@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
- 
+
 const adminSchema = new Schema({
     name: {
         type: String,
@@ -15,6 +15,10 @@ const adminSchema = new Schema({
         type: String,
         required: true
     },
+    isBlocked: {
+        type: Boolean,
+        default: false  // Default value is set to false, indicating the user is not blocked initially
+    }
 },
     { timestamps: true }
 );
