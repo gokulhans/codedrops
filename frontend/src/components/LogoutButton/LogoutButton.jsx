@@ -1,16 +1,17 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { auth } from "../../../firebase";
+import { signOut } from "firebase/auth";
+import toast from 'react-hot-toast';
 
 const LogoutButton = ({ setIsAuth }) => {
     const navigate = useNavigate();
     const handleLogout = () => {
-        localStorage.removeItem('isAuth');
-        localStorage.removeItem('userid'); 
-        localStorage.removeItem('username');
-        localStorage.removeItem('token');
-        localStorage.removeItem('email');
+        signOut(auth)
+        localStorage.clear();
         setIsAuth(false);
         navigate('/');
+        toast.success('Logout Successfully!');
     };
 
     return (

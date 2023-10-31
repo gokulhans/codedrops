@@ -8,6 +8,7 @@ import Hero from '../../components/Hero/Hero'
 import Drops from '../Drop/Drops/Drops'
 
 const Home = () => {
+
   return (
     <>
       <div className='p-3 sm:p-8 space-y-6 sm:space-y-12'>
@@ -16,7 +17,7 @@ const Home = () => {
         {/* <Feature /> */}
         {/* <Faqs /> */}
         <div className='flex items-center justify-center'>
-        <Drops />
+          <Drops />
         </div>
         <Cto />
         {/* <Contact /> */}

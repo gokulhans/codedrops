@@ -5,6 +5,8 @@ import { useRef } from "react";
 import { useMutation, useQuery } from '@tanstack/react-query';
 import axiosClient from '../../../axios';
 import convertToSlug from "../../../utils/slugify";
+import toast from 'react-hot-toast';
+
 
 const AddDrop = () => {
     const [dropName, setdropName] = useState("");
@@ -14,6 +16,8 @@ const AddDrop = () => {
     const [showError, setShowError] = useState(null)
     const navigate = useNavigate();
     const [Tags, setTags] = useState([])
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredTags, setFilteredTags] = useState([]);
 
     const apiKey = import.meta.env.VITE_TINYMCE_API_KEY;
 
@@ -24,6 +28,7 @@ const AddDrop = () => {
         };
         const response = await axiosClient.get('/tag', { headers });
         setTags(response.data.data);
+        setFilteredTags(response.data.data);
         return response.data.data; // Assuming your API response contains an array of drops
     };
 
@@ -32,11 +37,18 @@ const AddDrop = () => {
         queryFn: fetchTags,
     });
 
+    const handleSearchChange = (event) => {
+        const { value } = event.target;
+        setSearchTerm(value);
+
+        // Filter tags based on the search input value
+        const filtered = Tags.filter(tag => tag.tagName.toLowerCase().includes(value.toLowerCase()));
+        setFilteredTags(filtered);
+    };
+
     const handleTagToggle = (tagid) => {
         if (selectedTags.includes(tagid)) {
-            setSelectedTags(
-                selectedTags.filter((selectedTag) => selectedTag !== tagid)
-            );
+            setSelectedTags(selectedTags.filter((selectedTag) => selectedTag !== tagid));
         } else {
             setSelectedTags([...selectedTags, tagid]);
         }
@@ -74,6 +86,7 @@ const AddDrop = () => {
         onSuccess: () => {
             // Handle success, navigate to a different page or show a success message
             navigate("/");
+            toast.success('Drop Added Successfully!');
         },
         onError: (error) => {
             setShowError('Error occurred while adding drop. Please try again.');
@@ -164,22 +177,28 @@ const AddDrop = () => {
                                 Drop Tags
                             </label>
 
+                            <div className="mb-4">
+                                <input
+                                    type="text"
+                                    placeholder="Search tags"
+                                    value={searchTerm}
+                                    onChange={handleSearchChange}
+                                    className="border py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400"
+                                />
+                            </div>
+
                             <div className="flex flex-wrap">
-                                {Tags.map((tag) => (
+                                {filteredTags.map((tag) => (
                                     <div
                                         key={tag._id}
                                         onClick={() => handleTagToggle(tag._id)}
                                         className={`cursor-pointer border border-1 border-green-700 rounded-full px-3 py-1 m-2 
-            ${selectedTags.includes(tag._id)
-                                                ? "bg-green-700 text-white"
-                                                : "text-green-600"
-                                            }`}
+            ${selectedTags.includes(tag._id) ? "bg-green-700 text-white" : "text-green-600"}`}
                                     >
                                         {tag.tagName}
                                     </div>
                                 ))}
                             </div>
-
                             <div className="flex items-end justify-between">
                                 <p className="text-orange-700 text-xs dark:text-orange-500">
                                     Crafted with 💚 by <b> {localStorage.getItem("username")}</b>

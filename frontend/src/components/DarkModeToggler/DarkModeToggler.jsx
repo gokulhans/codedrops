@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 const DarkModeToggler = () => {
     const [darkMode, setDarkMode] = useState(false);
@@ -23,6 +24,7 @@ const DarkModeToggler = () => {
 
     const toggleDarkMode = () => {
         const newDarkMode = !darkMode;
+        toast.success('DarkMode Toggled Succesfully!');
         setDarkMode(newDarkMode);
 
         // Save dark mode preference to local storage

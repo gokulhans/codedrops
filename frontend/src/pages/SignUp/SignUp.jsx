@@ -5,7 +5,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
 import axiosClient from '../../axios';
 import { Link, useNavigate } from "react-router-dom";
-
+import { auth, provider } from '../../../firebase.js'
+import { signInWithPopup } from 'firebase/auth'
+import toast from 'react-hot-toast'
 
 const SignUp = ({ setIsAuth }) => {
 
@@ -30,7 +32,7 @@ const SignUp = ({ setIsAuth }) => {
             return axiosClient.post('/auth/signup', data)
         },
         onSuccess: (data) => {
-            const { name, userId, token, email } = data.data;
+            const { name, userId, token, email, photoURL } = data.data;
             localStorage.setItem('isAuth', true)
             localStorage.setItem('userid', userId)
             localStorage.setItem('username', name)
@@ -38,6 +40,7 @@ const SignUp = ({ setIsAuth }) => {
             localStorage.setItem('email', email)
             setIsAuth(true)
             navigate("/")
+            toast.success('SignUp Success!');
         },
         onError: (error) => {
             if (error.response && error.response.status === 400) {
@@ -54,6 +57,29 @@ const SignUp = ({ setIsAuth }) => {
     const onSubmit = (data) => {
         setIsLoading(true)
         mutateAsync(data);
+    }
+
+    const handleGoogleAuth = () => {
+        signInWithPopup(auth, provider).then(async (result) => {
+            let data = {
+                _id: result.user.uid,
+                name: result.user.displayName,
+                email: result.user.email,
+                photoURL: result.user.photoURL,
+            }
+            setIsLoading(true)
+            let user = await axiosClient.post('/auth/google/signin', data)
+            const { name, userId, token, email, photoURL } = user.data;
+            localStorage.setItem('isAuth', true)
+            localStorage.setItem('userid', userId)
+            localStorage.setItem('username', name)
+            localStorage.setItem('photoURL', photoURL)
+            localStorage.setItem('token', token)
+            localStorage.setItem('email', email)
+            setIsAuth(true)
+            navigate("/")
+            toast.success('SignUp Success!');
+        })
     }
 
     return (
@@ -74,7 +100,7 @@ const SignUp = ({ setIsAuth }) => {
                         </p>
                     </div>
                     <div className="mt-5">
-                        {/* <button
+                        <button onClick={handleGoogleAuth}
                             type="button"
                             className="w-full py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-gray-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-900"
                         >
@@ -102,11 +128,11 @@ const SignUp = ({ setIsAuth }) => {
                                     fill="#EB4335"
                                 />
                             </svg>
-                            Sign up with Google
+                            Continue with Google
                         </button>
                         <div className="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:border-gray-200 before:mr-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ml-6 dark:text-gray-500 dark:before:border-gray-600 dark:after:border-gray-600">
                             Or
-                        </div> */}
+                        </div>
                         {/* Form */}
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="grid gap-y-4">

@@ -6,6 +6,8 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import axiosClient from '../../../axios';
 import ShimmerDropBlock from "./../../../components/Shimmer/ShimmerDropBlock";
 import convertToSlug from "../../../utils/slugify";
+import toast from 'react-hot-toast';
+
 
 const EditDrop = () => {
     const [dropName, setdropName] = useState("");
@@ -15,6 +17,16 @@ const EditDrop = () => {
     const [showError, setShowError] = useState(null)
     const navigate = useNavigate();
     const [Tags, setTags] = useState([])
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredTags, setFilteredTags] = useState([]);
+
+    const handleSearchChange = (event) => {
+        const { value } = event.target;
+        setSearchTerm(value);
+        const filtered = Tags.filter(tag => tag.tagName.toLowerCase().includes(value.toLowerCase()));
+        setFilteredTags(filtered);
+    };
+
 
     const fetchTags = async () => {
         const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
@@ -23,6 +35,7 @@ const EditDrop = () => {
         };
         const response = await axiosClient.get('/tag', { headers });
         setTags(response.data.data);
+        setFilteredTags(response.data.data);
         return response.data.data; // Assuming your API response contains an array of drops
     };
 
@@ -95,6 +108,7 @@ const EditDrop = () => {
         },
         onSuccess: () => {
             navigate("/");
+            toast.success('Drop Edited Successfully!');
         },
         onError: (error) => {
             setShowError('Error occurred while adding drop. Please try again.');
@@ -200,8 +214,18 @@ const EditDrop = () => {
                                 Drop Tags
                             </label>
 
+                            <div className="mb-4">
+                                <input
+                                    type="text"
+                                    placeholder="Search tags"
+                                    value={searchTerm}
+                                    onChange={handleSearchChange}
+                                    className="border py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400"
+                                />
+                            </div>
+
                             <div className="flex flex-wrap">
-                                {Tags.map((tag) => (
+                                {filteredTags.map((tag) => (
                                     <div
                                         key={tag._id}
                                         onClick={() => handleTagToggle(tag)}

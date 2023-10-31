@@ -3,6 +3,7 @@ import CopyToast from "../Toast/CopyToast";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosClient from "../../axios";
+import toast from 'react-hot-toast';
 
 const DropBlock = ({
     dropname,
@@ -17,7 +18,6 @@ const DropBlock = ({
 }) => {
 
     const queryClient = useQueryClient();
-
 
     // const urlRegex = /(https?:\/\/[^\s]+)/g;
     // const highlighteddropbody = dropbody.replace(urlRegex, (url) => {
@@ -35,6 +35,7 @@ const DropBlock = ({
     const handleCopy = () => {
         navigator.clipboard.writeText(dropbody);
         setIsCopied(true);
+        toast.success('Drop Copied!');
     };
 
     const handleShare = () => {
@@ -42,6 +43,7 @@ const DropBlock = ({
             `${import.meta.env.VITE_FRONTEND_URL}#/drop/${dropid}/${slug}`
         );
         setIsShared(true);
+        toast.success('Drop Link Copied!');
     };
 
     // let navigate = useNavigate()
@@ -56,6 +58,7 @@ const DropBlock = ({
         },
         onSuccess: () => {
             // Invalidate and refetch queries related to the updated data
+            toast.success('Drop Deleted Successfully!');
             queryClient.invalidateQueries('drops');
         },
     });
@@ -97,7 +100,7 @@ const DropBlock = ({
                         </svg>}
                         {isShared && (
                             <CopyToast
-                                message="Link copied to clipboard!"
+                                message="Copied!"
                                 onClose={closeToast}
                             />
                         )}

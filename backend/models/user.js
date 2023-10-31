@@ -13,7 +13,12 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
-        required: true
+    },
+    photoURL: {
+        type: String,
+    },
+    googleId: {
+        type: String,
     },
     isBlocked: {
         type: Boolean,

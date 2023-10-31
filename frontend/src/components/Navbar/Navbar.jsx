@@ -85,7 +85,7 @@ const Navbar = ({ isAuth, setIsAuth }) => {
               </a> */}
               <a
                 className="font-medium text-gray-500 hover:text-gray-400 md:py-6 dark:text-gray-400 dark:hover:text-gray-500"
-                href="/https://github.com/gokulhans/codedrops" target='_blank'
+                href="https://github.com/gokulhans/codedrops" target='_blank'
               >
                 Github
               </a>
@@ -105,6 +105,21 @@ const Navbar = ({ isAuth, setIsAuth }) => {
                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
                     Add Drop
+                  </Link>
+                  <Link to={`/profile/${localStorage.getItem("userid")}/${localStorage.getItem("username")}`}
+                    href="https://github.com/gokulhans/CodeDrops"
+                  >
+                    {localStorage.getItem("photoURL") ?
+                      (
+                        <img width="36" height="36" className='object-cover rounded-full' src={localStorage.getItem("photoURL")} alt="" />
+                      ) :
+                      (
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-person-circle" viewBox="0 0 16 16">
+                          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                          <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                        </svg>
+                      )
+                    }
                   </Link>
                   <LogoutButton setIsAuth={setIsAuth} />
                 </>

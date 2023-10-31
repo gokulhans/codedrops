@@ -17,12 +17,8 @@ const Tag = () => {
 
     const queryClient = useQueryClient();
 
-    useEffect(() => {
-        queryClient.invalidateQueries('tagdrops');
-    }, [id]);
-
     const { data: drops, isLoading, isError, error } = useQuery({
-        queryKey: ['tagdrops'],
+        queryKey: ['tagdrops', id],
         queryFn: fetchUserDrops,
     });
 

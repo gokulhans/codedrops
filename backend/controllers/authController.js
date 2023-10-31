@@ -4,8 +4,45 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const authController = {
+    googleSignIn: async (req, res) => {
+        const { name, email, photoURL, _id } = req.body;
+
+        const newUser = new User({
+            name,
+            email,
+            password: "",
+            photoURL,
+            googleId: _id
+        });
+        try {
+            const user = await User.findOne({ email });
+            // If the user doesn't exist
+            if (!user) {
+                await newUser.save();
+                const token = jwt.sign({ userId: newUser._id, email: newUser.email }, process.env.JWT_SECRET_KEY, {
+                    // expiresIn: '1h', // Token expiration time (e.g., 1 hour)
+                });
+                res.status(201).json({ message: 'User created successfully', name, userId: newUser._id, token, email, photoURL });
+            } else {
+
+                // Generate a JSON Web Token (JWT)
+                const token = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET_KEY, {
+                    // expiresIn: '1h', // Token expiration time (e.g., 1 hour)
+                });
+                // Send the token and user details in the response
+                res.status(200).json({ message: 'Sign in successful', userId: user._id, name: user.name, token, email, photoURL });
+            }
+
+        } catch (error) {
+            if (error.code === 11000 && error.keyPattern && error.keyPattern.email) {
+                return res.status(400).json({ error: 'Email address is already in use' });
+            }
+            console.error(error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    },
     signUp: async (req, res) => {
-        const { name, email, password } = req.body;
+        const { name, email, password, confirmPassword, acceptTerms } = req.body;
 
         // Hash the password
         const saltRounds = 10;
@@ -16,6 +53,7 @@ const authController = {
             name,
             email,
             password: hashedPassword,
+            acceptTerms,
         });
 
         try {
@@ -75,10 +113,8 @@ const authController = {
     signUpAdmin: async (req, res) => {
         const { name, email, password } = req.body;
 
-        console.log(name);
-
         // Check if the user's email matches the admin email you want to allow
-        const allowedAdminEmails = ['admin1@example.com','admin2@example.com'];
+        const allowedAdminEmails = ['admin1@example.com',];
 
         // Check if the provided email is in the list of allowed admin emails
         if (allowedAdminEmails.includes(email)) {
