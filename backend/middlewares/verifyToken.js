@@ -3,6 +3,9 @@ const secretKey = process.env.JWT_SECRET_KEY; // Replace with a secure secret ke
 
 const verifyToken = (req, res, next) => {
     const token = req.header('Authorization').replace('Bearer ', '');
+    // if (req.isAuthenticated()) {
+    //     return next();
+    // }
     try {
         const decoded = jwt.verify(token, secretKey);
         // If verification is successful, attach the user data to the request object

@@ -37,7 +37,7 @@ const AdminListTile = ({ admin }) => {
                     <Link to={`/admin/${admin._id}/${admin.slug}`} className="flex items-center gap-x-3">
                         <div className="grow">
                             <span className="block text-sm font-semibold text-gray-800 dark:text-gray-200">
-                                {admin.name}a
+                                {admin.name}
                             </span>
                         </div>
                     </Link>

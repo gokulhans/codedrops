@@ -13,12 +13,17 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
-        required: true
     },
-    acceptTerms: {
+    photoURL: {
+        type: String,
+    },
+    googleId: {
+        type: String,
+    },
+    isBlocked: {
         type: Boolean,
-        required: true
-    },
+        default: false  // Default value is set to false, indicating the user is not blocked initially
+    }
 },
     { timestamps: true }
 );

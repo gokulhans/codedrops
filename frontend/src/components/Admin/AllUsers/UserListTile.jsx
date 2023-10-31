@@ -37,7 +37,7 @@ const UserlistTile = ({ user }) => {
                     <Link to={`/user/${user._id}/${user.slug}`} className="flex items-center gap-x-3">
                         <div className="grow">
                             <span className="block text-sm font-semibold text-gray-800 dark:text-gray-200">
-                                {user.name}a
+                                {user.name}
                             </span>
                         </div>
                     </Link>

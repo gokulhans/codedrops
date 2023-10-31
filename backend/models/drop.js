@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const User = require('../models/user');
+
 
 const dropSchema = new Schema({
     dropname: {
@@ -14,17 +16,13 @@ const dropSchema = new Schema({
         type: String,
         required: true
     },
-    tags: {
-        type: [],
-        required: true
-    },
-    username: {
-        type: String,
-        required: true
-    },
-    userid: {
-        type: String,
-        required: true
+    tags: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Tag' // Reference to the Tag model
+    }],
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User' // Reference to the User model
     },
     public: {
         type: Boolean,

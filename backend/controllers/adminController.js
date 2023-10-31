@@ -6,7 +6,7 @@ const Drop = require('../models/drop');
 const adminController = {
     getAllAdmins: async (req, res) => {
         try {
-            const admins = await Admin.find();
+            const admins = await Admin.find(); 
             res.json(admins);
         } catch (error) {
             res.status(500).json({ error: error.message });

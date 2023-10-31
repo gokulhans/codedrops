@@ -20,6 +20,7 @@ import AdminSignUp from './pages/Admin/SignUp/SignUp';
 import AdminForgot from './pages/Admin/Forgot_Password/Forgot_Password';
 import AdminNavbar from './components/Navbar/AdminNavbar';
 import Waitlist from './pages/Waitlist/Waitlist';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
@@ -27,6 +28,10 @@ function App() {
     isAdmin, setIsAdmin] = useState(localStorage.getItem("isAdmin"));
   return (
     <>
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+      />
       <div className='bg-blue-50 dark:bg-gray-900 dark:text-gray-50'>
         {isAdmin ? <>
           <AdminNavbar isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
