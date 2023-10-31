@@ -29,7 +29,7 @@ function App() {
   return (
     <>
       <Toaster
-        position="top-right"
+        position="top-left"
         reverseOrder={false}
       />
       <div className='bg-blue-50 dark:bg-gray-900 dark:text-gray-50'>
