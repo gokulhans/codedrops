@@ -40,7 +40,7 @@ const DropBlock = ({
 
     const handleShare = () => {
         navigator.clipboard.writeText(
-            `${import.meta.env.VITE_FRONTEND_URL}#/drop/${dropid}/${slug}`
+            `${import.meta.env.VITE_FRONTEND_URL}drop/${dropid}/${slug}`
         );
         setIsShared(true);
         toast.success('Drop Link Copied!');
