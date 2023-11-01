@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Editor } from "@tinymce/tinymce-react";
 import { useRef } from "react";
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axiosClient from '../../../axios';
 import ShimmerDropBlock from "./../../../components/Shimmer/ShimmerDropBlock";
 import convertToSlug from "../../../utils/slugify";
 import toast from 'react-hot-toast';
-
 
 const EditDrop = () => {
     const [dropName, setdropName] = useState("");
@@ -19,13 +18,14 @@ const EditDrop = () => {
     const [Tags, setTags] = useState([])
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredTags, setFilteredTags] = useState([]);
+    const queryClient = useQueryClient();
 
     const handleSearchChange = (event) => {
         const { value } = event.target;
         setSearchTerm(value);
         const filtered = Tags.filter(tag => tag.tagName.toLowerCase().includes(value.toLowerCase()));
         setFilteredTags(filtered);
-    };
+    }; 
 
 
     const fetchTags = async () => {
@@ -107,6 +107,7 @@ const EditDrop = () => {
             return axiosClient.put(`/drop/${id}`, data, { headers });
         },
         onSuccess: () => {
+            queryClient.invalidateQueries('drops');
             navigate("/");
             toast.success('Drop Edited Successfully!');
         },

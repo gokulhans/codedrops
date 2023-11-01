@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Editor } from "@tinymce/tinymce-react";
 import { useRef } from "react";
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axiosClient from '../../../axios';
 import convertToSlug from "../../../utils/slugify";
 import toast from 'react-hot-toast';
@@ -18,6 +18,7 @@ const AddDrop = () => {
     const [Tags, setTags] = useState([])
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredTags, setFilteredTags] = useState([]);
+    const queryClient = useQueryClient();
 
     const apiKey = import.meta.env.VITE_TINYMCE_API_KEY;
 
@@ -85,6 +86,7 @@ const AddDrop = () => {
         },
         onSuccess: () => {
             // Handle success, navigate to a different page or show a success message
+            queryClient.invalidateQueries('drops');
             navigate("/");
             toast.success('Drop Added Successfully!');
         },
